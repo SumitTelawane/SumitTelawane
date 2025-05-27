@@ -1,0 +1,50 @@
+Prac 9
+docker --version
+
+docker pull nginx
+
+docker images
+
+docker run -d -p 8080:80 --name mynginx nginx
+
+docker ps
+
+Create index.html file locally
+
+docker cp index.html mynginx:/usr/share/nginx/html/
+
+docker cp mynginx:/usr/share/nginx/html/index.html .
+
+docker volume create mydata
+
+docker run -d -p 8081:80 --name nginx_vol -v mydata:/usr/share/nginx/html nginx
+
+docker volume ls
+
+docker rm -f mynginx
+docker rmi nginx
+-------------------------------------------------
+
+Prac 10
+Create index.html
+
+
+Create DockerFile and add inside 
+
+# Use an official Nginx image as the base
+FROM nginx:alpine
+
+# Copy index.html to the Nginx web directory
+COPY index.html /usr/share/nginx/html/index.html
+
+docker build -t my-docker-webapp .
+
+docker run -d -p 8080:80 --name webapp-container my-docker-webapp
+
+docker ps
+
+docker stop webapp-container
+
+docker rm webapp-container
+
+docker rmi my-docker-webapp
